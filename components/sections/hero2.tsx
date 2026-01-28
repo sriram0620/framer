@@ -1,58 +1,164 @@
-import React from "react";
+"use client";
+
+import React, { useState } from "react";
 import Image from "next/image";
+import { ArrowUpRight } from "lucide-react";
 
 /**
- * Hero component for the Magnetto portfolio.
- * Features a pixelated title, a central portrait background, and a descriptive block.
- * Uses a fixed height layout with large rounded corners consistent with the "section-card" pattern.
- * Optimized to display completely in a single viewport.
+ * Hero2 - Vision AI component with dynamic project switcher
+ * Features Vision AI related projects with a1, a2, a3, a4 images
  */
-export default function Hero() {
+
+const projectData = [
+  {
+    id: "vision-ai-base",
+    title: "Vision AI — Image Recognition",
+    services: ["Vision AI", "Computer Vision"],
+    description: "Advanced image analysis that understands context, detects objects, and extracts insights from visual data. From facial recognition to quality control, our Vision AI processes millions of images with precision and speed.",
+    image: "/a1.avif",
+  },
+  {
+    id: "object-detection",
+    title: "Object Detection — Real-Time Analysis",
+    services: ["Vision AI", "Computer Vision"],
+    description: "Advanced object detection systems that identify and classify objects in real-time. Perfect for security, retail analytics, and automated quality control.",
+    image: "/a2.avif",
+  },
+  {
+    id: "facial-recognition",
+    title: "Facial Recognition — Identity Verification",
+    services: ["Vision AI", "Biometrics"],
+    description: "Secure facial recognition technology for access control and identity verification. High accuracy with privacy-first architecture.",
+    image: "/a3.avif",
+  },
+  {
+    id: "quality-inspection",
+    title: "Quality Inspection — Automated Control",
+    services: ["Vision AI", "Industrial AI"],
+    description: "Automated quality inspection systems that detect defects and ensure product consistency. Reduce errors and increase production efficiency.",
+    image: "/a4.avif",
+  },
+];
+
+export default function Hero2() {
+  const [activeIndex, setActiveIndex] = useState(0);
+
   return (
-    <section className="relative w-full px-2 py-2 md:px-4 md:py-4 bg-transparent touch-none">
-      <div className="relative w-full h-screen max-h-screen overflow-hidden bg-[#F2F2F2] rounded-[40px] md:rounded-[156px] flex flex-col justify-between p-6 md:p-12 lg:p-16 xl:p-20">
-        {/* Background Image Container */}
-        <div className="absolute inset-0 z-0">
-          <Image
-            src="https://slelguoygbfzlpylpxfs.supabase.co/storage/v1/object/public/test-clones/c27f2c2c-1370-43a2-88f0-f7e654a86f02-magnetto-framer-website/assets/images/SQ2uUedRxIqO9jQCB4SXYQXRcQk-1.webp"
-            alt="Maverick Portrait"
-            fill
-            className="object-cover object-center pointer-events-none grayscale"
-            priority
-          />
-        </div>
-
-        {/* Content Layer */}
-        <div className="relative z-10 w-full h-full flex flex-col justify-between">
-          
-          {/* Top Section: Logo & Studio Label */}
-          <div className="flex flex-col gap-1 md:gap-2 flex-shrink-0">
-            <h1 className="font-display text-[48px] sm:text-[64px] md:text-[100px] lg:text-[120px] xl:text-[140px] leading-[0.8] tracking-[-0.04em] text-black uppercase">
-              Vision AI
-            </h1>
-            <h5 className="font-sans font-medium text-[11px] md:text-[13px] uppercase tracking-[0.2em] text-black/60 translate-y-1 md:translate-y-2">
-              Computer Vision・Image Recognition
-            </h5>
+    <section className="relative w-full h-screen min-h-[800px] overflow-hidden bg-black text-white">
+      {/* Dynamic Backgrounds */}
+      <div className="absolute inset-0 z-0">
+        {projectData.map((project, index) => (
+          <div
+            key={project.id}
+            className={`absolute inset-0 transition-opacity duration-1000 ease-in-out ${
+              index === activeIndex ? "opacity-100" : "opacity-0"
+            }`}
+          >
+            <Image
+              src={project.image}
+              alt={project.title}
+              fill
+              priority
+              className="object-cover object-center"
+            />
+            {/* Gradient Overlay for Text Legibility */}
+            <div className="absolute inset-0 bg-gradient-to-tr from-black/60 via-transparent to-black/30" />
           </div>
+        ))}
+      </div>
 
-          {/* Bottom Section: Description Grid */}
-          <div className="flex flex-col md:grid md:grid-cols-12 gap-4 md:gap-6 flex-shrink-0 mt-auto">
-            {/* Empty space for central alignment focus */}
-            <div className="hidden md:block md:col-span-8" />
+      {/* Main Content Layout */}
+      <div className="relative z-10 container mx-auto h-full flex flex-col justify-end pb-24 lg:pb-32 px-6 lg:px-12">
+        <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-12">
+          
+          {/* Left Column: Heading & CTAs */}
+          <div className="max-w-[720px] space-y-8 animate-in fade-in slide-in-from-bottom-8 duration-700">
+            <div className="inline-block px-3 py-1 bg-white/10 backdrop-blur-md rounded-full">
+              <span className="text-[12px] font-medium tracking-wide leading-none py-1">
+                Vision AI Solutions for Modern Business
+              </span>
+            </div>
             
-            {/* Description Text */}
-            <div className="md:col-span-4 max-w-[400px]">
-              <p className="font-sans text-[14px] md:text-[16px] lg:text-[18px] leading-[1.5] md:leading-[1.6] text-black font-medium text-balance">
-                Advanced image analysis that understands context, detects objects, and extracts insights from visual data. 
-                From facial recognition to quality control, our Vision AI processes millions of images with precision and speed, 
-                enabling automated decision-making and enhanced user experiences.
-              </p>
+            <h1 className="text-5xl lg:text-[72px] font-semibold leading-[1.05] tracking-tight text-white drop-shadow-sm">
+              Vision AI <br /> & Image Recognition
+            </h1>
+            
+            <p className="text-lg lg:text-xl text-white/90 max-w-[540px] leading-relaxed">
+              Advanced image analysis that understands context, detects objects, and extracts insights from visual data. 
+              From facial recognition to quality control, our Vision AI processes millions of images with precision and speed.
+            </p>
+
+            <div className="flex flex-wrap gap-4 pt-4">
+              <a
+                href="/contact"
+                className="pill-button bg-white text-black hover:bg-[#81E6B2] transition-colors group inline-flex items-center gap-2 px-6 py-3 rounded-full font-semibold"
+              >
+                Get Started
+                <ArrowUpRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+              </a>
+              <a
+                href="/services"
+                className="pill-button bg-[#81E6B2] text-black hover:bg-white transition-colors inline-flex items-center gap-2 px-6 py-3 rounded-full font-semibold"
+              >
+                Our Services
+              </a>
             </div>
           </div>
-        </div>
 
-        {/* Decorative mask/canvas overlay (placeholder for Framer grain/noise if needed) */}
-        <div className="absolute inset-0 pointer-events-none opacity-[0.03] mix-blend-overlay bg-noise" />
+          {/* Right Column: Dynamic Project Info & Sidebar Navigation */}
+          <div className="lg:w-[420px] bg-black/20 backdrop-blur-xl border border-white/10 p-8 rounded-[24px] lg:mb-4 animate-in fade-in slide-in-from-right-8 duration-1000">
+            {/* Active Project Card */}
+            <div className="mb-10 min-h-[140px]">
+              <div className="flex items-center gap-3 mb-3">
+                {projectData[activeIndex].services.map((service, i) => (
+                  <React.Fragment key={service}>
+                    <span className="text-[14px] font-medium text-white/70">{service}</span>
+                    {i < projectData[activeIndex].services.length - 1 && (
+                      <div className="w-1 h-1 rounded-full bg-white/40" />
+                    )}
+                  </React.Fragment>
+                ))}
+              </div>
+              <p className="text-[18px] leading-snug text-white font-normal mb-8">
+                {projectData[activeIndex].description}
+              </p>
+              <div className="w-full h-[180px] relative rounded-xl overflow-hidden mb-8 border border-white/10">
+                <Image
+                  src={projectData[activeIndex].image}
+                  alt={projectData[activeIndex].title}
+                  fill
+                  className="object-cover"
+                />
+              </div>
+            </div>
+
+            {/* Navigation List */}
+            <ul className="space-y-4">
+              {projectData.map((project, index) => (
+                <li key={project.id}>
+                  <button
+                    onMouseEnter={() => setActiveIndex(index)}
+                    onClick={() => setActiveIndex(index)}
+                    className={`w-full text-left py-2 px-1 transition-all duration-300 border-b ${
+                      index === activeIndex 
+                        ? "text-white border-white" 
+                        : "text-white/40 border-white/10 hover:text-white/70 hover:border-white/40"
+                    }`}
+                  >
+                    <span className="text-[15px] font-medium tracking-wide uppercase">
+                      {project.title}
+                    </span>
+                  </button>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      {/* Background Decor */}
+      <div className="absolute top-0 right-0 w-1/3 h-full pointer-events-none opacity-20">
+        <div className="w-full h-full bg-gradient-to-l from-[#81E6B2] to-transparent blur-3xl opacity-30" />
       </div>
     </section>
   );

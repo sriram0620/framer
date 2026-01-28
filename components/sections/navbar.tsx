@@ -20,6 +20,32 @@ export default function Navbar({ activeHero = "hero", onHeroChange }: NavbarProp
     { id: "hero4", label: "Voice AI" },
   ];
 
+  // Dynamic color scheme based on active hero
+  const heroColors: Record<string, { bg: string; hover: string; shadow: string }> = {
+    hero: { 
+      bg: "#81E6B2", 
+      hover: "#6ed4a0", 
+      shadow: "rgba(129, 230, 178, 0.3)" 
+    },
+    hero2: { 
+      bg: "#81E6B2", 
+      hover: "#6ed4a0", 
+      shadow: "rgba(129, 230, 178, 0.3)" 
+    },
+    hero3: { 
+      bg: "#FFFFFF", 
+      hover: "#E5E5E5", 
+      shadow: "rgba(255, 255, 255, 0.3)" 
+    },
+    hero4: { 
+      bg: "#9D59FF", 
+      hover: "#8B4FE6", 
+      shadow: "rgba(157, 89, 255, 0.3)" 
+    },
+  };
+
+  const currentColors = heroColors[activeHero] || heroColors.hero;
+
   const handleHeroClick = (heroId: string) => {
     if (onHeroChange) {
       onHeroChange(heroId);
@@ -38,16 +64,17 @@ export default function Navbar({ activeHero = "hero", onHeroChange }: NavbarProp
           WebkitBackdropFilter: "blur(20px)",
         }}
       >
-        {/* Profile Image Trigger */}
-        <div className="relative w-10 h-10 md:w-12 md:h-12 overflow-hidden rounded-full flex-shrink-0 border border-white/5">
+        {/* Profile Avatar - Enhanced */}
+        <div className="relative w-12 h-12 md:w-14 md:h-14 overflow-hidden rounded-full flex-shrink-0 border-2 border-white/20 shadow-lg ring-2 ring-white/10 transition-transform duration-300 hover:scale-110">
           <Image
             src="https://slelguoygbfzlpylpxfs.supabase.co/storage/v1/object/public/test-clones/c27f2c2c-1370-43a2-88f0-f7e654a86f02-magnetto-framer-website/assets/images/ZNnj2toPGisdyf6eClzPnuV72fM-13.jpg"
-            alt="Profile"
+            alt="Profile Avatar"
             fill
-            className="object-cover"
-            sizes="48px"
+            className="object-cover object-center"
+            sizes="56px"
             priority
           />
+          <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-transparent pointer-events-none" />
         </div>
 
         {/* Hero Session Switcher */}
@@ -84,17 +111,31 @@ export default function Navbar({ activeHero = "hero", onHeroChange }: NavbarProp
           </select>
         </div>
 
-        {/* Contact CTA */}
+        {/* Contact CTA - Dynamic Color */}
         <div className="flex-shrink-0">
           <a
             href="/contact"
-            className="group relative inline-flex items-center gap-2 bg-[#81E6B2] hover:bg-[#6ed4a0] text-black px-5 md:px-6 py-2.5 md:py-3 rounded-full transition-all duration-300 ease-out overflow-hidden shadow-lg shadow-[#81E6B2]/20"
+            className="group relative inline-flex items-center gap-2 px-5 md:px-6 py-2.5 md:py-3 rounded-full transition-all duration-300 ease-out overflow-hidden shadow-lg"
+            style={{
+              backgroundColor: currentColors.bg,
+              boxShadow: `0 10px 25px ${currentColors.shadow}`,
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.backgroundColor = currentColors.hover;
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.backgroundColor = currentColors.bg;
+            }}
           >
             <div className="relative h-[18px] md:h-[20px] overflow-hidden flex flex-col">
-              <span className="text-[14px] md:text-[16px] font-semibold leading-[18px] md:leading-[20px] translate-y-0 group-hover:-translate-y-full transition-transform duration-300">
+              <span 
+                className="text-[14px] md:text-[16px] font-semibold leading-[18px] md:leading-[20px] translate-y-0 group-hover:-translate-y-full transition-transform duration-300 text-black"
+              >
                 Contact
               </span>
-              <span className="absolute top-0 text-[14px] md:text-[16px] font-semibold leading-[18px] md:leading-[20px] translate-y-full group-hover:translate-y-0 transition-transform duration-300">
+              <span 
+                className="absolute top-0 text-[14px] md:text-[16px] font-semibold leading-[18px] md:leading-[20px] translate-y-full group-hover:translate-y-0 transition-transform duration-300 text-black"
+              >
                 Contact
               </span>
             </div>
@@ -106,7 +147,7 @@ export default function Navbar({ activeHero = "hero", onHeroChange }: NavbarProp
                   strokeWidth="2.5" 
                   strokeLinecap="round" 
                   strokeLinejoin="round"
-                  className="w-full h-full transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1"
+                  className="w-full h-full transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1 text-black"
                 >
                   <line x1="7" y1="17" x2="17" y2="7"></line>
                   <polyline points="7 7 17 7 17 17"></polyline>

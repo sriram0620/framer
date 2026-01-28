@@ -50,13 +50,13 @@ export default function Home() {
       <div className="transition-opacity duration-500">
         {renderHero()}
       </div>
-      <ProjectsGrid />
+      {/* <ProjectsGrid />
       <AboutSection />
       <ClientsSection />
       <ServicesMilestones />
       <Journal />
       <ContactSection />
-      <Footer />
+      <Footer /> */}
     </main>
   );
 }
