@@ -80,7 +80,7 @@ export default function Hero() {
             </div>
             
             <h1 className="text-5xl lg:text-[72px] font-semibold leading-[1.05] tracking-tight text-white drop-shadow-sm">
-              Intelligent AI <br /> & Enterprise Solutions
+              Intelligent AI <br /> & Enterprise <span className="text-shine-green">Solutions</span>
             </h1>
             
             <p className="text-lg lg:text-xl text-white/90 max-w-[540px] leading-relaxed">
@@ -160,6 +160,20 @@ export default function Hero() {
       <div className="absolute top-0 right-0 w-1/3 h-full pointer-events-none opacity-20">
         <div className="w-full h-full bg-gradient-to-l from-[#81E6B2] to-transparent blur-3xl opacity-30" />
       </div>
+
+      <style jsx>{`
+        .text-shine-green {
+          background: linear-gradient(to right, #FFFFFF 20%, #81E6B2 40%, #81E6B2 60%, #FFFFFF 80%);
+          background-size: 200% auto;
+          color: transparent;
+          background-clip: text;
+          -webkit-background-clip: text;
+          animation: shine 3.5s linear infinite;
+        }
+        @keyframes shine {
+          to { background-position: 200% center; }
+        }
+      `}</style>
     </section>
   );
 }
